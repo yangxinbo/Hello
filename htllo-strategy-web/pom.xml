@@ -11,7 +11,20 @@
 
     <artifactId>htllo-strategy-web</artifactId>
 
+    <properties>
+        <lombok.version>1.18.8</lombok.version>
+    </properties>
+
     <dependencies>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

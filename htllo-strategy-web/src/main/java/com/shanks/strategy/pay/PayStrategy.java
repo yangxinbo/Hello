@@ -1,16 +1,20 @@
 package com.shanks.strategy.pay;
 
+import java.util.Map;
+
 /**
  * FileName    : com.shanks.strategy
  * Description :
  *
- * @author : 毒液
+ * @author : shanks
  * @version : 1.0
  * Create Date : 2021/3/17 22:15
- * @Copyright : WithUFuture Software Co.,Ltd.Rights Reserved
- * @Company : 深圳幻影未来信息科技有限公司
+ * @Copyright : shanks
+ * @Company : shanks
  **/
 public interface PayStrategy {
+
+    Map<String, String> strategyMap();
 
     String pay();
 

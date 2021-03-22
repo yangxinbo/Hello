@@ -2,18 +2,28 @@ package com.shanks.strategy.pay;
 
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * FileName    : com.shanks.strategy
  * Description :
  *
- * @author : 毒液
+ * @author : shanks
  * @version : 1.0
  * Create Date : 2021/3/17 22:16
- * @Copyright : WithUFuture Software Co.,Ltd.Rights Reserved
- * @Company : 深圳幻影未来信息科技有限公司
+ * @Copyright : dd
+ * @Company : dd
  **/
 @Service
 public class WechatPayStrategy implements PayStrategy {
+
+    @Override
+    public Map<String, String> strategyMap() {
+        return new HashMap<String, String>() {{
+            put("wechatPay", "1");
+        }};
+    }
 
     @Override
     public String pay() {
