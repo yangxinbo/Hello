@@ -3,7 +3,7 @@ package com.shanks.strategy.pay;
 import java.util.Map;
 
 /**
- * FileName    : com.shanks.strategy
+ * FileName    : 支付策略接口
  * Description :
  *
  * @author : shanks

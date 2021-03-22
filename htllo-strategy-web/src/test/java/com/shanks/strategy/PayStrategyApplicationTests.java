@@ -28,4 +28,16 @@ class PayStrategyApplicationTests {
         }
     }
 
+
+    @Test
+    void contextLoads1() {
+        String payType = "aliPay";
+        if ("aliPay".equals(payType)) {
+            // TODO 调用支付宝
+        } else if ("wechatPay".equals(payType)) {
+            // TODO 调用微信
+        }
+        // TODO 调用其他支付平台
+    }
+
 }

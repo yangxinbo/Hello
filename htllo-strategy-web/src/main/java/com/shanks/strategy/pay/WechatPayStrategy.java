@@ -27,7 +27,7 @@ public class WechatPayStrategy implements PayStrategy {
 
     @Override
     public String pay() {
-        return "WechatPay";
+        return "调用WechatPay";
     }
 
 }

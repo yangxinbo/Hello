@@ -27,7 +27,7 @@ public class AliPayStrategy implements PayStrategy {
 
     @Override
     public String pay() {
-        return "aliPay";
+        return "调用aliPay";
     }
 
 }
