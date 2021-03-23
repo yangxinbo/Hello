@@ -21,7 +21,20 @@
     </properties>
 
     <modules>
-        <module>htllo-strategy-web</module>
+        <module>hello-strategy-web</module>
+        <module>hello-netty-client</module>
+        <module>hello-netty-server</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.60.Final</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
