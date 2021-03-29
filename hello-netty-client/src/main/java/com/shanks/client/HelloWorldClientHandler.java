@@ -24,7 +24,7 @@ public class HelloWorldClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        System.out.println("HelloWorldClientHandler Active");
+        log.info("HelloWorldClientHandler Active");
     }
 
     /**
@@ -32,7 +32,7 @@ public class HelloWorldClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("HelloWorldClientHandler read Message:" + msg);
+        log.info("HelloWorldClientHandler read Message:" + msg);
     }
 
     /**

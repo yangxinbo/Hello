@@ -2,6 +2,7 @@ package com.shanks.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * FileName    : 服务端处理器
@@ -13,12 +14,14 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @Copyright : WithUFuture Software Co.,Ltd.Rights Reserved
  * @Company : 深圳幻影未来信息科技有限公司
  **/
+@Slf4j
+
 public class HelloWorldServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("server channelRead..");
-        System.out.println(ctx.channel().remoteAddress() + "->Server :" + msg.toString());
+        log.info("server channelRead..");
+        log.info(ctx.channel().remoteAddress() + "->Server :" + msg.toString());
         ctx.write("server write" + msg);
         ctx.flush();
     }
