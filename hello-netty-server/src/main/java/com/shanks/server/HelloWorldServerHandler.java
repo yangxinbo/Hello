@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
-
 public class HelloWorldServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
