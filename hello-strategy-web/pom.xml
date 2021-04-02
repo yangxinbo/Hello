@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>htllo-strategy-web</artifactId>
+    <artifactId>hello-strategy-web</artifactId>
 
     <properties>
     </properties>
