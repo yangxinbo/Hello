@@ -17,7 +17,7 @@ class PayStrategyApplicationTests {
     @Test
     void contextLoads() {
         {
-            String payType = "aliPay";
+            String payType = "aliPay1";
             String result = payStrategContextService.getStrategy(payType).pay();
             log.info("[pay]: payType:{} ,result:{}", payType, result);
         }

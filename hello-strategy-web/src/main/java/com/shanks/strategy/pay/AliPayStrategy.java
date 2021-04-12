@@ -22,6 +22,7 @@ public class AliPayStrategy implements PayStrategy {
     public Map<String, String> strategyMap() {
         return new HashMap<String, String>() {{
             put("aliPay", "1");
+            put("aliPay1", "1");
         }};
     }
 
