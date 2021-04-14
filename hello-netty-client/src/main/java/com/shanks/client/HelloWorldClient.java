@@ -1,12 +1,16 @@
 package com.shanks.client;
 
+import com.withufuture.game.proto.Message;
+import com.withufuture.game.proto.Request;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 /**
  * FileName    : com.shanks.client
@@ -38,16 +42,24 @@ public class HelloWorldClient {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline p = ch.pipeline();
-                        p.addLast("decoder", new StringDecoder());
-                        p.addLast("encoder", new StringEncoder());
+                        ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+                        ch.pipeline().addLast("decoder", new ProtobufDecoder(Message.getDefaultInstance()));
+                        ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
+                        ch.pipeline().addLast("encoder", new ProtobufEncoder());
                         p.addLast(new HelloWorldClientHandler());
                     }
                 });
         try {
             // 连接
             ChannelFuture future = b.connect(HOST, PORT).sync();
+
+            Request.Builder req = Request.newBuilder();
+            req.setName("1");
+            Message.Builder msgReq = Message.newBuilder();
+            msgReq.setReq(req);
+
             // 发送消息
-            future.channel().writeAndFlush("Hello Netty Server ,I am a common client");
+            future.channel().writeAndFlush(msgReq.build());
             // 等待连接被关闭
             future.channel().closeFuture().sync();
         } finally {

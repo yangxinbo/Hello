@@ -1,7 +1,8 @@
 package com.shanks.client;
 
+import com.withufuture.game.proto.Message;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,33 +16,10 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
-public class HelloWorldClientHandler extends ChannelInboundHandlerAdapter {
+public class HelloWorldClientHandler extends SimpleChannelInboundHandler<Message> {
 
-    /**
-     * 客户端连接时触发
-     *
-     * @param ctx
-     */
     @Override
-    public void channelActive(ChannelHandlerContext ctx) {
-        log.info("HelloWorldClientHandler Active");
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message message) throws Exception {
+        log.info("client:{}", message);
     }
-
-    /**
-     * 客户端发消息会触发
-     */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        log.info("HelloWorldClientHandler read Message:" + msg);
-    }
-
-    /**
-     * 发生异常触发
-     */
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
-        ctx.close();
-    }
-
 }

@@ -1,7 +1,8 @@
 package com.shanks.server;
 
+import com.withufuture.game.proto.Message;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,20 +16,10 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
-public class HelloWorldServerHandler extends ChannelInboundHandlerAdapter {
+public class HelloWorldServerHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("server channelRead..");
-        log.info(ctx.channel().remoteAddress() + "->Server :" + msg.toString());
-        ctx.write("server write" + msg);
-        ctx.flush();
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message message) throws Exception {
+        log.info("msg:{}", message);
     }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
-        ctx.close();
-    }
-
 }
