@@ -67,6 +67,7 @@ public class WrapperProtocol {
             array = ByteBufUtil.getBytes(buf, buf.readerIndex(), length, false);
             offset = 0;
         }
+        this.header = header;
         this.body = body.getParserForType().parseFrom(array, offset, length);
     }
 
