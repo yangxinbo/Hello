@@ -40,7 +40,11 @@ public class WrapperProtocol {
      * @param buf 缓冲区
      */
     public void encode(ByteBuf buf) {
-        header.encode(buf);
+        buf.writeByte(this.header.getRequestId());
+        buf.writeByte(this.header.getVersion());
+        buf.writeByte(this.header.getSerializer());
+        buf.writeByte(this.header.getCommand());
+        buf.writeInt(this.header.getLength());
         buf.writeBytes(body.toByteArray());
     }
 
@@ -51,10 +55,13 @@ public class WrapperProtocol {
      * @throws InvalidProtocolBufferException
      */
     public void decode(ByteBuf buf) throws InvalidProtocolBufferException {
-        WrapperHeader header = new WrapperHeader();
-        header.decode(buf);
+        WrapperHeader header = new WrapperHeader()
+                .setRequestId(buf.readByte())
+                .setVersion(buf.readByte())
+                .setSerializer(buf.readByte())
+                .setCommand(buf.readByte())
+                .setLength(buf.readInt());
         MessageLite body = Test.getDefaultInstance();
-
         // 解码body
         final byte[] array;
         final int offset;

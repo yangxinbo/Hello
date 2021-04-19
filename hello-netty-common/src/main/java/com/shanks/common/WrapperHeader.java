@@ -1,6 +1,5 @@
 package com.shanks.common;
 
-import io.netty.buffer.ByteBuf;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -27,32 +26,5 @@ public class WrapperHeader {
     private byte command;
 
     private int length;
-
-
-    /**
-     * 解码
-     *
-     * @param buf 缓冲区
-     */
-    public void decode(ByteBuf buf) {
-        this.requestId = buf.readByte();
-        this.version = buf.readByte();
-        this.serializer = buf.readByte();
-        this.command = buf.readByte();
-        this.length = buf.readInt();
-    }
-
-    /**
-     * 编码
-     *
-     * @param buf 缓冲区
-     */
-    public void encode(ByteBuf buf) {
-        buf.writeByte(this.requestId);
-        buf.writeByte(this.version);
-        buf.writeByte(this.serializer);
-        buf.writeByte(this.command);
-        buf.writeInt(this.length);
-    }
 
 }
