@@ -1,8 +1,12 @@
 package com.shanks.client;
 
-import com.withufuture.game.proto.Wrapper;
+import com.shanks.common.ProtoDecoder;
+import com.shanks.common.ProtoEncoder;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -43,38 +47,17 @@ public class HelloWorldClient {
                         //ch.pipeline().addLast("decoder", new ProtobufDecoder(Message.getDefaultInstance()));
                         //ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
                         //ch.pipeline().addLast("encoder", new ProtobufEncoder());
-                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 4, 4));
-                        ch.pipeline().addLast("encoder", new TestProtobufEncoder());
-                        ch.pipeline().addLast("decoder", new TestProtobufDecoder());
-                        ch.pipeline().addLast(new HelloWorldClientHandler());
+                        ch.pipeline().addLast("LengthFieldBasedFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 4, 4, 0, 0));
+                        ch.pipeline().addLast("encoder", new ProtoEncoder());
+                        ch.pipeline().addLast("decoder", new ProtoDecoder());
+                        ch.pipeline().addLast("hello", new HelloWorldClientHandler());
                     }
                 });
         try {
             // 连接
             ChannelFuture future = b.connect(HOST, PORT).sync();
-
-
-            for (int i = 0; i < 10; i++) {
-                Wrapper wrapper = Wrapper.newBuilder()
-                        .setRequestId(String.valueOf(i))
-                        .setCode("1")
-                        .setMsg("msg").build();
-
-                byte by = 1;
-                WrapperHeader header = new WrapperHeader();
-                header.setRequestId(by);
-                header.setVersion(by);
-                header.setSerializer(by);
-                header.setCommand(by);
-                header.setLength(wrapper.toByteArray().length);
-
-                WrapperProtocol protocol = new WrapperProtocol();
-                protocol.setHeader(header);
-                protocol.setBody(wrapper);
-                // 发送消息
-                future.channel().writeAndFlush(protocol);
-                log.info("msg{},{}", i, protocol);
-            }
+            // 发送消息
+            //future.channel().writeAndFlush(protocol);
 
             // 等待连接被关闭
             future.channel().closeFuture().sync();

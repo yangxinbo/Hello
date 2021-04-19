@@ -1,5 +1,7 @@
 package com.shanks.server;
 
+import com.shanks.common.WrapperProtocol;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
+@ChannelHandler.Sharable
 public class HelloWorldServerHandler extends SimpleChannelInboundHandler<WrapperProtocol> {
 
     @Override
@@ -24,13 +27,6 @@ public class HelloWorldServerHandler extends SimpleChannelInboundHandler<Wrapper
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, WrapperProtocol message) throws Exception {
-        log.info("msg:{}", message.getHeader());
-        log.info("msg:{}", message.getBody());
-
-        //Wrapper.Builder resp = Wrapper.newBuilder();
-        //resp.setCode("0");
-        //resp.setMsg("ok");
-        //channelHandlerContext.write(resp.build());
-        //channelHandlerContext.flush();
+        log.info("msg:{}", message);
     }
 }

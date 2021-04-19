@@ -1,7 +1,8 @@
-package com.shanks.client;
+package com.shanks.common;
 
 import io.netty.buffer.ByteBuf;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * FileName    : com.shanks.server
@@ -14,15 +15,16 @@ import lombok.Data;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Data
+@Accessors(chain = true)
 public class WrapperHeader {
 
-    private Byte requestId;
+    private byte requestId;
 
-    private Byte version;
+    private byte version;
 
-    private Byte serializer;
+    private byte serializer;
 
-    private Byte command;
+    private byte command;
 
     private int length;
 

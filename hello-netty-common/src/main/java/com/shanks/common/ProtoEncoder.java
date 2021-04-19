@@ -1,6 +1,7 @@
-package com.shanks.server;
+package com.shanks.common;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 
@@ -16,12 +17,13 @@ import java.util.List;
  * @Copyright : WithUFuture Software Co.,Ltd.Rights Reserved
  * @Company : 深圳幻影未来信息科技有限公司
  **/
-public class TestProtobufEncoder extends MessageToMessageEncoder<WrapperProtocol> {
+@ChannelHandler.Sharable
+public class ProtoEncoder extends MessageToMessageEncoder<WrapperProtocol> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, WrapperProtocol msg, List<Object> out) throws Exception {
         ByteBuf buf = ctx.alloc().buffer();
         msg.encode(buf);
-        out.add(msg);
+        out.add(buf);
     }
 }

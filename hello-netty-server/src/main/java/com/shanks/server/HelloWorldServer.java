@@ -1,5 +1,7 @@
 package com.shanks.server;
 
+import com.shanks.common.ProtoDecoder;
+import com.shanks.common.ProtoEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -64,10 +66,10 @@ public class HelloWorldServer {
                         //ch.pipeline().addLast("decoder",new ProtobufDecoder(Message.getDefaultInstance()));
                         //ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
                         //ch.pipeline().addLast("encoder", new ProtobufEncoder());
-                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 4, 4));
-                        ch.pipeline().addLast("decoder", new TestProtobufDecoder());
-                        ch.pipeline().addLast("encoder", new TestProtobufEncoder());
-                        ch.pipeline().addLast(new HelloWorldServerHandler());
+                        ch.pipeline().addLast("LengthFieldBasedFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 4, 4, 0, 0));
+                        ch.pipeline().addLast("decoder", new ProtoDecoder());
+                        ch.pipeline().addLast("encoder", new ProtoEncoder());
+                        ch.pipeline().addLast("hello", new HelloWorldServerHandler());
                     }
                 })
                 //设置队列大小

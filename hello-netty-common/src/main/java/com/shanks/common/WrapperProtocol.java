@@ -1,11 +1,12 @@
-package com.shanks.client;
+package com.shanks.common;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageLite;
-import com.withufuture.game.proto.Wrapper;
+import com.withufuture.game.proto.Test;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * FileName    : com.shanks.server
@@ -18,11 +19,20 @@ import lombok.Data;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Data
+@Accessors(chain = true)
 public class WrapperProtocol {
 
     private WrapperHeader header;
 
     private MessageLite body;
+
+    public WrapperProtocol() {
+    }
+
+    public WrapperProtocol(WrapperHeader header, MessageLite body) {
+        this.header = header;
+        this.body = body;
+    }
 
     /**
      * 编码
@@ -34,10 +44,16 @@ public class WrapperProtocol {
         buf.writeBytes(body.toByteArray());
     }
 
+    /**
+     * 解码
+     *
+     * @param buf
+     * @throws InvalidProtocolBufferException
+     */
     public void decode(ByteBuf buf) throws InvalidProtocolBufferException {
         WrapperHeader header = new WrapperHeader();
         header.decode(buf);
-        MessageLite body = Wrapper.getDefaultInstance();
+        MessageLite body = Test.getDefaultInstance();
 
         // 解码body
         final byte[] array;
@@ -52,7 +68,6 @@ public class WrapperProtocol {
             offset = 0;
         }
         this.body = body.getParserForType().parseFrom(array, offset, length);
-
     }
 
 

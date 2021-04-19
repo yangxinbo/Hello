@@ -25,6 +25,7 @@
         <module>hello-strategy-web</module>
         <module>hello-netty-client</module>
         <module>hello-netty-server</module>
+        <module>hello-netty-common</module>
     </modules>
 
     <dependencyManagement>

@@ -1,6 +1,10 @@
-package com.shanks.client;
+package com.shanks.common;
 
+import com.google.protobuf.MessageLite;
+import com.withufuture.game.proto.Test;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +22,8 @@ import java.util.List;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
-public class TestProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
+@ChannelHandler.Sharable
+public class ProtoDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
@@ -27,13 +32,12 @@ public class TestProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
         out.add(protocol);
     }
 
-    /*
-    @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+
+    protected void decode1(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         // 标记一下当前的readIndex的位置
         in.markReaderIndex();
         // 判断包头长度
-        if (in.readableBytes() < 2) {// 不够包头
+        if (in.readableBytes() < 4) {// 不够包头
             return;
         }
         // 读取传送过来的消息的长度。
@@ -53,7 +57,8 @@ public class TestProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
         try {
             byte[] inByte = frame.array();
             // 字节转成对象
-            ProtoMsg.Message msg = ProtoMsg.Message.parseFrom(inByte);
+            MessageLite body = Test.getDefaultInstance();
+            MessageLite msg = body.getParserForType().parseFrom(inByte);
             if (msg != null) {
                 // 获取业务消息头
                 out.add(msg);
@@ -62,5 +67,5 @@ public class TestProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
             log.info(ctx.channel().remoteAddress() + ",decode failed.", e);
         }
     }
-     */
+
 }
