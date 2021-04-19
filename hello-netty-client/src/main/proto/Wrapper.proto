@@ -4,26 +4,13 @@ package test;//package与java_package有些不同，java_package是定义编译�
 import "google/protobuf/any.proto";
 
 option java_package = "com.withufuture.game.proto";
-option java_outer_classname = "ProtocolMessageProto";//要生成Java类的名称
+option java_outer_classname = "WrapperProto";//要生成Java类的名称
 option java_multiple_files = true;//编译后会生成多个Message类，并没有被包含在HelloWorldServiceProto.java文件中,反之,生成单一HelloWorldServiceProto.java文件
 
 
-message Message
+message Wrapper
 {
-   Request req = 1;
-   Response resp = 2;
-}
-
-//请求参数 基于序号的协议字段映射，所以字段可以乱序，可缺段
-message Request {
-  string name = 1;
-  string sex = 2;
-}
-
-//响应参数
-message Response  {
   string requestId = 1;
   string code = 2;
   string msg = 3;
-  google.protobuf.Any data = 4;
 }

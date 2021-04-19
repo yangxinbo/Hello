@@ -1,6 +1,5 @@
 package com.shanks.client;
 
-import com.withufuture.game.proto.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +15,10 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : 深圳幻影未来信息科技有限公司
  **/
 @Slf4j
-public class HelloWorldClientHandler extends SimpleChannelInboundHandler<Message> {
+public class HelloWorldClientHandler extends SimpleChannelInboundHandler<WrapperProtocol> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message message) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, WrapperProtocol message) throws Exception {
         log.info("client:{}", message);
     }
 }
