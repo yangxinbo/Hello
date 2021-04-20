@@ -29,8 +29,6 @@ public class ProtoDecoder extends MessageToMessageDecoder<ByteBuf> {
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
         WrapperProtocol protocol = new WrapperProtocol();
         protocol.decode(msg);
-
-
         out.add(protocol);
     }
 
