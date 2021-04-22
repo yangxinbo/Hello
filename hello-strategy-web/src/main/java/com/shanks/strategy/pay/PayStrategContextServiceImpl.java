@@ -23,10 +23,14 @@ public class PayStrategContextServiceImpl implements PayStrategContextService {
 
     private Map<String, PayStrategy> strategyMap = new ConcurrentHashMap<>();
 
+
     @Autowired
     public void initStrategy(Map<String, PayStrategy> payStrategyMap) {
         for (Map.Entry<String, PayStrategy> strategyEntry : payStrategyMap.entrySet()) {
             for (Map.Entry<String, String> strategyKeyEntry : strategyEntry.getValue().strategyMap().entrySet()) {
+                if (!"1".equals(strategyKeyEntry.getValue())) {
+                    continue;
+                }
                 this.strategyMap.put(strategyKeyEntry.getKey(), strategyEntry.getValue());
             }
         }
@@ -37,5 +41,10 @@ public class PayStrategContextServiceImpl implements PayStrategContextService {
     @Override
     public PayStrategy getStrategy(String strategyKey) {
         return strategyMap.get(strategyKey);
+    }
+
+    @Override
+    public String pay(PayReq strategyKey) {
+        return strategyMap.get(strategyKey.payCode()).pay(strategyKey);
     }
 }

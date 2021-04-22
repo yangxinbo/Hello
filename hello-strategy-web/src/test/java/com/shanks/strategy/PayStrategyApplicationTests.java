@@ -1,6 +1,8 @@
 package com.shanks.strategy;
 
+import com.shanks.strategy.pay.AliPayReq;
 import com.shanks.strategy.pay.PayStrategContextService;
+import com.shanks.strategy.pay.WechatPayReq;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,18 @@ class PayStrategyApplicationTests {
     @Test
     void contextLoads() {
         {
-            String payType = "aliPay1";
-            String result = payStrategContextService.getStrategy(payType).pay();
-            log.info("[pay]: payType:{} ,result:{}", payType, result);
+            AliPayReq payReq = new AliPayReq();
+            payReq.setTitle("title");
+            payReq.setTest("aaaa");
+            String result = payStrategContextService.pay(payReq);
+            log.info("[pay]: payType:{} ,result:{}", result);
         }
         {
-            String payType = "wechatPay";
-            String result = payStrategContextService.getStrategy(payType).pay();
-            log.info("[pay]: payType:{} ,result:{}", payType, result);
+            WechatPayReq payReq = new WechatPayReq();
+            payReq.setTitle("title");
+            payReq.setTest2("aaaa2");
+            String result = payStrategContextService.pay(payReq);
+            log.info("[pay]: payType:{} ,result:{}", result);
         }
     }
 

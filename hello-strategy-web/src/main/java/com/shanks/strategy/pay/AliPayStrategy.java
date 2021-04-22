@@ -1,5 +1,6 @@
 package com.shanks.strategy.pay;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @Copyright : shanks
  * @Company : shanks
  **/
+@Slf4j
 @Service
 public class AliPayStrategy implements PayStrategy {
 
@@ -22,12 +24,13 @@ public class AliPayStrategy implements PayStrategy {
     public Map<String, String> strategyMap() {
         return new HashMap<String, String>() {{
             put("aliPay", "1");
-            put("aliPay1", "1");
         }};
     }
 
     @Override
-    public String pay() {
+    public String pay(PayReq payReq) {
+        AliPayReq aliPayReq = (AliPayReq) payReq;
+        log.info("req:{}", aliPayReq);
         return "调用aliPay";
     }
 

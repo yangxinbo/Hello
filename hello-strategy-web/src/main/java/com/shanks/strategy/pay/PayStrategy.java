@@ -16,6 +16,6 @@ public interface PayStrategy {
 
     Map<String, String> strategyMap();
 
-    String pay();
+    String pay(PayReq payReq);
 
 }

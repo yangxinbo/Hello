@@ -13,4 +13,6 @@ package com.shanks.strategy.pay;
 public interface PayStrategContextService {
 
     PayStrategy getStrategy(String strategyKey);
+
+    String pay(PayReq strategyKey);
 }

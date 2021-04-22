@@ -1,5 +1,6 @@
 package com.shanks.strategy.pay;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @Copyright : dd
  * @Company : dd
  **/
+@Slf4j
 @Service
 public class WechatPayStrategy implements PayStrategy {
 
@@ -26,7 +28,9 @@ public class WechatPayStrategy implements PayStrategy {
     }
 
     @Override
-    public String pay() {
+    public String pay(PayReq payReq) {
+        WechatPayReq wechatPayReq = (WechatPayReq) payReq;
+        log.info("req:{}", wechatPayReq);
         return "调用WechatPay";
     }
 
