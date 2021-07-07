@@ -26,6 +26,7 @@
         <module>hello-netty-client</module>
         <module>hello-netty-server</module>
         <module>hello-netty-common</module>
+        <module>hello-event-web</module>
     </modules>
 
     <dependencyManagement>
